@@ -1,4 +1,5 @@
 import logo from './logo.svg';
+import UserPost from './template/user-post';
 import './App.css';
 
 function App() {
@@ -15,7 +16,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+         <UserPost/>
         </a>
       </header>
     </div>
