@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import postService from '../utils/post-service';
+import userPostService from '../../utils/user-post-service';
 
 const UserPost = () => {
     useEffect(() => {
@@ -7,13 +7,13 @@ const UserPost = () => {
     });
 
     const getAllPost = async () => {
-        const postlist = await postService.getUserPosts();
+        const postlist = await userPostService.getUserPosts();
         console.log('postlist', postlist);
     };
 
     return(
         <>
-        <h3>This is user's post Page</h3>
+        <h3>This is create post Page</h3>
         </>
     )
 }

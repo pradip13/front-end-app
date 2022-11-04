@@ -1,0 +1,20 @@
+.css-hip9hq-MuiPaper-root-MuiAppBar-root {
+    background-color: #39393c !important;
+}
+
+.nav-bar-mobile-view {
+    color: black;
+    text-decoration: none;
+    padding-right: 1em;
+}
+
+.nav-bar-desktop-view {
+    color: white;
+    text-decoration: none;
+    padding-right: 1em;
+}
+
+.gfg-banner-style {
+    width: 90px;
+    height: 40px;
+}

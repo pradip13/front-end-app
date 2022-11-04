@@ -2,7 +2,7 @@ import axios from "axios";
 
 const proxyServer = 'socialMediaServerHost';
 
-const postService = {
+const userPostService = {
     getUserPosts() {
         const encodedURI = window.encodeURI('/get-post');
 
@@ -21,4 +21,4 @@ const postService = {
     }
 }
 
-export default postService;
+export default userPostService;
