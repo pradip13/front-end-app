@@ -1,7 +1,14 @@
-import React, {useEffect} from 'react';
-import userPostService from '../../utils/user-post-service';
+import React, { useEffect, useState } from 'react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+
+import CreatePost from './create-post';
+import userPostService from '../../utils/post-service';
 
 const PostPage = () => {
+    const [postCreated, setPostCreated] = useState(false);
+    const [postEdited, setPostEdited] = useState(false);
+
     useEffect(() => {
         // getAllPost();
     });
@@ -11,10 +18,12 @@ const PostPage = () => {
         console.log('postlist', postlist);
     };
 
-    return(
-        <>
-        <h3>This is a  post Page</h3>
-        </>
+    return (
+        <Container fluid="true">
+            <Box sx={{ bgcolor: '#F5F6F7', height: '100vh' }}>
+                <CreatePost />
+            </Box>
+        </Container>
     )
 }
 
