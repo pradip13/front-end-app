@@ -46,18 +46,18 @@ const CreateProfile = () => {
     const createProfile = (e) => {
         e.preventDefault();
 
-        console.log(profileData)
-
         const isProfileInputsAreValid = ProfileHelper.validateProfileInputField(profileData);
 
-        console.log(isProfileInputsAreValid);
-
         if (isProfileInputsAreValid) {
-            // make api call
-            console.log('api call will be triggered')
+            createUserProfile(profileData);
         } else {
             setError(!isProfileInputsAreValid);
         }
+    }
+
+    const createUserProfile = async(data) => {
+        const response = await ProfileService.createProfile(data);
+        console.log(response);
     }
 
     const clearProfileContent = (e) => {

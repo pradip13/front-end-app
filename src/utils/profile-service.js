@@ -2,6 +2,41 @@ import axios from "axios";
 
 const proxyServer = 'socialMediaServerHost';
 
-const ProfileService = {}
+const ProfileService = {
+    createProfile(profileData) {
+        const encodedURI = window.encodeURI('/create-profile');
+
+        return axios({
+            method: "POST",
+            url: encodedURI,
+            data: profileData,
+            "headers": {
+                'Content-Type': 'application/json',
+                'server': proxyServer
+            }
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            return err
+        })
+    },
+
+    fetchAllProfile() {
+        const encodedURI = window.encodeURI('/get-profile');
+
+        return axios({
+            method: "GET",
+            url: encodedURI,
+            "headers": {
+                'Content-Type': 'application/json',
+                'server': proxyServer
+            }
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            return err;
+        })
+    }
+}
 
 export default ProfileService;
