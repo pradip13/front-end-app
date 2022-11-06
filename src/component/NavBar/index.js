@@ -10,6 +10,7 @@ const NavBar = () => {
         <div style={{ backgroundColor: 'cyan' }}>
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/profile-page'>Profile</NavLink>
+            <NavLink to='/create-profile'>Create Profile</NavLink>
             <NavLink to='/profile-list'>All profile</NavLink>
         </div>
     )

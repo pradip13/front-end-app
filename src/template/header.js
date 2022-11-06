@@ -18,13 +18,14 @@ import userImage from '../images/user-image.png';
 import './header.css';
 
 const pages = [
-    { url: '/', name: 'Home' },
-    { url: '/profile-list', name: 'All Profile' },
+    { url: '/', name: 'All Profile' },
+    { url: '/create-post', name: 'Create Post' },
     { url: '/post-list', name: 'All Post' }
 ];
 
 const settings = [
     { url: '/profile-page', name: 'Profile' },
+    { url: '/create-profile', name: 'Create Profile' },
     { url: '/account', name: 'Account' },
     { url: '/dashboard', name: 'Dashboard' }
 ];

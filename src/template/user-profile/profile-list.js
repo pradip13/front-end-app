@@ -3,20 +3,17 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
-import { styled } from '@mui/material/styles';
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
-import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 import fallback_img from '../../images/profile-fallback-img.jpeg';
@@ -31,8 +28,16 @@ const ProfileListPage = () => {
 
     const getProfileList = async () => {
         const response = await ProfileService.fetchAllProfile();
-        console.log(response.data)
-        setProfileList(response.data);
+        const data = response.data;
+        setProfileList(data);
+        storeRequiredDataIntoSessionStorage(data);
+    }
+
+    const storeRequiredDataIntoSessionStorage = (data) => {
+        const currentData = data[0];
+        const { name, email } = currentData;
+        sessionStorage.setItem('name', name);
+        sessionStorage.setItem('email', email);
     }
 
     return (
@@ -67,7 +72,7 @@ const ProfileListPage = () => {
                                     <CardContent>
                                         <Typography variant="body2" color="text.secondary">
                                             {/* This is Hard-coded content, please pass it dynamically */}
-                                            
+
                                             Hello there, I am JACK, I love doing comic.
                                             I have been part of various comic film. I also played famous role as MR.Bean
                                         </Typography>

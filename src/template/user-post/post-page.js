@@ -3,6 +3,7 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 import CreatePost from './create-post';
+// import PostListPage from './post-list';
 import userPostService from '../../utils/post-service';
 
 const PostPage = () => {
@@ -20,8 +21,9 @@ const PostPage = () => {
 
     return (
         <Container fluid="true">
-            <Box sx={{ bgcolor: '#F5F6F7', height: '100vh' }}>
+            <Box sx={{ bgcolor: '#F5F6F7', minHeight: '100vh' }}>
                 <CreatePost />
+                {/* <PostListPage /> */}
             </Box>
         </Container>
     )

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Container from '@mui/material/Container';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
@@ -66,6 +67,8 @@ const CreateProfile = () => {
     }
 
     return (
+        <Container fluid="true">
+            <Box sx={{ bgcolor: '#F5F6F7', height: '100vh' }}>
         <Paper sx={{ p: 2 }}>
             <Box sx={{ flexGrow: 3 }}>
                 <Grid container direction="row" justifyContent="center" alignItems="cener">
@@ -162,6 +165,8 @@ const CreateProfile = () => {
                 </Grid>
             </Box>
         </Paper>
+        </Box>
+        </Container>
     )
 }
 

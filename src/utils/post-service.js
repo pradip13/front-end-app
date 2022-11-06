@@ -21,7 +21,7 @@ const PostService = {
         })
     },
 
-    getUserPosts() {
+    getAllPost() {
         const encodedURI = window.encodeURI('/get-post');
 
         return axios({
