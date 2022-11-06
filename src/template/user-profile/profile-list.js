@@ -15,6 +15,7 @@ import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import EditIcon from '@mui/icons-material/Edit';
 
 import fallback_img from '../../images/profile-fallback-img.jpeg';
 import ProfileService from '../../utils/profile-service';
@@ -40,12 +41,18 @@ const ProfileListPage = () => {
         sessionStorage.setItem('email', email);
     }
 
+    const handleProfileEdit = (e, id) => {
+        e.preventDefault();
+        // history(' /userUpdate', { state: { id: id } });
+        console.log("edit", id)
+    }
+
     return (
         <Container fluid="true">
-            <Box sx={{ bgcolor: '#F5F6F7', height: '100vh' }}>
+            <Box sx={{ bgcolor: '#F5F6F7', minHeight: '100vh' }}>
                 <Grid container direction="row" rowGap={3} justifyContent="space-around" alignItems="center">
                     {
-                        profileList.length &&
+                        profileList?.length &&
                         profileList.map((item) =>
                             <Grid item xs md={10} lg={3}>
                                 <Card sx={{ maxWidth: 345 }}>
@@ -84,8 +91,10 @@ const ProfileListPage = () => {
                                         <IconButton aria-label="share">
                                             <ShareIcon />
                                         </IconButton>
+                                        <IconButton aria-label="edit" onClick={(e) => handleProfileEdit(e, item._id)}>
+                                            <EditIcon />
+                                        </IconButton>
                                     </CardActions>
-
                                 </Card>
                             </Grid>
                         )

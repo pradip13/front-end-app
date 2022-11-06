@@ -52,14 +52,17 @@ const CreatePost = () => {
             return;
         }
 
-        createUserPost(postData);
+        createUserPost(e, postData);
     }
 
-    const createUserPost = async (data) => {
+    const createUserPost = async (e, data) => {
         // API call to create post
         const response = await PostService.createPost(data);
         setGetAllPost(true);
-        console.log(response);
+
+        if(response.code === 200) {
+            clearPostContent(e);
+        }
     }
 
     const clearPostContent = (e) => {

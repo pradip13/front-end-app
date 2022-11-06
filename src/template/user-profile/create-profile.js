@@ -17,7 +17,7 @@ import FormHelperText from '@mui/material/FormHelperText';
 import { ProfileHelper } from '../../utils/helper';
 import ProfileService from '../../utils/profile-service';
 
-const CreateProfile = () => {
+const CreateProfile = ({mode, data}) => {
 
     const [error, setError] = useState(false);
     const [profileData, setProfileData] = useState({
@@ -34,8 +34,8 @@ const CreateProfile = () => {
     });
 
     const ageList = [];
-    for (let i = 18; i < 99; i++) {
-        ageList.push(i);
+    for (let number = 18; number < 99; number++) {
+        ageList.push(number);
     }
 
     const handleInputChange = (e) => {
@@ -121,8 +121,8 @@ const CreateProfile = () => {
                                     error={(error && !profileData.age) ?? false}
                                     helperText={error && !profileData.age ? `Inavalid age` : ''}>
                                     {
-                                        ageList.map((age, index) =>
-                                            <MenuItem key={index} value={age}>{age}</MenuItem>)
+                                        ageList.map((age) =>
+                                            <MenuItem key={age} value={age}>{age}</MenuItem>)
                                     }
                                 </TextField>
                             </Grid>
@@ -158,7 +158,7 @@ const CreateProfile = () => {
                         <Grid container direction="row" rowSpacing={2} columnSpacing={2} justifyContent="flex-end" alignItems="flex-end">
                             <Grid item xs={5} md={5} lg={6}>
                                 <Button variant="outlined" color="error" onClick={clearProfileContent}>Clear</Button>
-                                <Button variant="contained" color="success" onClick={createProfile}>Create</Button>
+                                <Button variant="contained" color="success" onClick={createProfile}>{ mode === 'edit'? "Edit": 'Create'}</Button>
                             </Grid>
                         </Grid>
                     </Grid>
