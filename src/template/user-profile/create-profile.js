@@ -10,11 +10,15 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
 
+import { ProfileHelper } from '../../utils/helper';
 import ProfileService from '../../utils/profile-service';
 
 const CreateProfile = () => {
 
+    const [error, setError] = useState(false);
     const [profileData, setProfileData] = useState({
         name: '',
         email: '',
@@ -28,6 +32,11 @@ const CreateProfile = () => {
         profile_creation_date: new Date().toDateString()
     });
 
+    const ageList = [];
+    for (let i = 18; i < 99; i++) {
+        ageList.push(i);
+    }
+
     const handleInputChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
@@ -36,11 +45,24 @@ const CreateProfile = () => {
 
     const createProfile = (e) => {
         e.preventDefault();
-        console.log(profileData);
+
+        console.log(profileData)
+
+        const isProfileInputsAreValid = ProfileHelper.validateProfileInputField(profileData);
+
+        console.log(isProfileInputsAreValid);
+
+        if (isProfileInputsAreValid) {
+            // make api call
+            console.log('api call will be triggered')
+        } else {
+            setError(!isProfileInputsAreValid);
+        }
     }
 
     const clearProfileContent = (e) => {
         e.preventDefault();
+        // TODO: As a Part of Assignment
     }
 
     return (
@@ -62,11 +84,15 @@ const CreateProfile = () => {
                         <Grid container direction="row" rowSpacing={2} columnSpacing={2}>
                             <Grid item xs={10} md={5} lg={5}>
                                 <TextField fullWidth label="Name" id="fullWidth" name="name"
-                                    value={profileData.name} onChange={handleInputChange} />
+                                    value={profileData.name} onChange={handleInputChange}
+                                    error={(error && !profileData.name) ?? false}
+                                    helperText={error && !profileData.name ? `Inavalid name` : ''} />
                             </Grid>
                             <Grid item xs={10} md={5} lg={5}>
                                 <TextField fullWidth label="Email" id="fullWidth" name="email"
-                                    value={profileData.email} onChange={handleInputChange} />
+                                    value={profileData.email} onChange={handleInputChange}
+                                    error={(error && !profileData.email) ?? false}
+                                    helperText={error && !profileData.email ? `Inavalid Email` : ''} />
                             </Grid>
                         </Grid>
 
@@ -79,11 +105,23 @@ const CreateProfile = () => {
                                         <FormControlLabel name="gender" value="female" control={<Radio />} label="Female" onChange={handleInputChange} />
                                         <FormControlLabel name="gender" value="male" control={<Radio />} label="Male" onChange={handleInputChange} />
                                     </RadioGroup>
+                                    {
+                                        (error && !profileData.gender) ?
+                                            <FormHelperText id="gender-error" style={{ color: 'red' }}>Please select any one</FormHelperText>
+                                            : ''
+                                    }
                                 </FormControl>
                             </Grid>
                             <Grid item xs={10} md={5} lg={5}>
-                                <TextField fullWidth label="Age" id="fullWidth" name="age"
-                                    value={profileData.age} onChange={handleInputChange} />
+                                <TextField select fullWidth label="Age" id="fullWidth" name="age"
+                                    value={profileData.age} onChange={handleInputChange}
+                                    error={(error && !profileData.age) ?? false}
+                                    helperText={error && !profileData.age ? `Inavalid age` : ''}>
+                                    {
+                                        ageList.map((age, index) =>
+                                            <MenuItem key={index} value={age}>{age}</MenuItem>)
+                                    }
+                                </TextField>
                             </Grid>
                         </Grid>
 
@@ -92,11 +130,15 @@ const CreateProfile = () => {
                             <Grid item xs={10} md={5} lg={5}>
                                 <TextField type="date" fullWidth label="Birth date" id="fullWidth" name="DOB"
                                     value={profileData.DOB} onChange={handleInputChange}
-                                    InputLabelProps={{ shrink: true }} />
+                                    InputLabelProps={{ shrink: true }}
+                                    error={(error && !profileData.DOB) ?? false}
+                                    helperText={error && !profileData.DOB ? `Inavalid DOB` : ''} />
                             </Grid>
                             <Grid item xs={10} md={5} lg={5}>
                                 <TextField fullWidth label="Location" id="fullWidth" name="location"
-                                    value={profileData.location} onChange={handleInputChange} />
+                                    value={profileData.location} onChange={handleInputChange}
+                                    error={(error && !profileData.location) ?? false}
+                                    helperText={error && !profileData.location ? `Inavalid Location` : ''} />
                             </Grid>
                         </Grid>
 
@@ -104,7 +146,9 @@ const CreateProfile = () => {
                         <Grid container direction="row" rowSpacing={2} columnSpacing={2}>
                             <Grid item xs={4} md={5} lg={5}>
                                 <TextField fullWidth label="Mobile number" id="fullWidth" name="mobile"
-                                    value={profileData.mobile} onChange={handleInputChange} />
+                                    value={profileData.mobile} onChange={handleInputChange}
+                                    error={(error && (!profileData.mobile || profileData.mobile.length !== 10)) ?? false}
+                                    helperText={(error && (!profileData.mobile || profileData.mobile.length !== 10)) ? `Please enter 10 digit mobile nunber` : ''} />
                             </Grid>
                         </Grid>
 
