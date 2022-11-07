@@ -14,10 +14,13 @@ import FormLabel from '@mui/material/FormLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormHelperText from '@mui/material/FormHelperText';
 
+import { useNavigate } from "react-router-dom";
 import { ProfileHelper } from '../../utils/helper';
 import ProfileService from '../../utils/profile-service';
 
 const CreateProfile = ({ mode, data }) => {
+
+    const navigate = useNavigate();
 
     const [error, setError] = useState(false);
     const [profileData, setProfileData] = useState({
@@ -84,12 +87,18 @@ const CreateProfile = ({ mode, data }) => {
 
     const createUserProfile = async (data) => {
         const response = await ProfileService.createProfile(data);
-        console.log(response);
+
+        if (response.code === 200) {
+            return navigate("/");
+        }
     }
 
     const updateUserProfile = async (data) => {
         const response = await ProfileService.updateProfile(data);
-        console.log(response);
+        
+        if (response.code === 200) {
+            return navigate("/");
+        }
     }
 
     const clearProfileContent = (e) => {

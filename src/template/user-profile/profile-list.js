@@ -12,10 +12,9 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import Alert from '@mui/material/Alert';
 import { Link } from 'react-router-dom';
@@ -35,6 +34,16 @@ const ProfileListPage = () => {
         const data = response.data || [];
         setProfileList(data);
         storeRequiredDataIntoSessionStorage(data);
+    }
+
+    const deleteProfile = async (e, profileId) => {
+        e.preventDefault();
+        const response = await ProfileService.deleteProfile(profileId);
+        console.log(response);
+
+        if(response.code === 200) {
+            getProfileList();
+        }
     }
 
     const storeRequiredDataIntoSessionStorage = (data) => {
@@ -84,19 +93,14 @@ const ProfileListPage = () => {
                                             </Typography>
                                         </CardContent>
                                         <CardActions disableSpacing>
-                                            <IconButton aria-label="add to favorites">
-                                                <FavoriteIcon />
-                                            </IconButton>
-                                            <IconButton aria-label="share">
-                                                <ShareIcon />
-                                            </IconButton>
 
-                                            {/* Button to edit profile */}
-                                            <IconButton aria-label="edit">
+                                            {/* Button to edit/delete profile */}
+                                            <Button color="primary">
                                                 <Link to="/profile-page" state={{ profileData: item }}>
                                                     <EditIcon />
                                                 </Link>
-                                            </IconButton>
+                                            </Button>
+                                            <Button color="error" startIcon={<DeleteIcon />} onClick={(e) => deleteProfile(e, item._id)} />
                                         </CardActions>
                                     </Card>
                                 </Grid>
@@ -105,7 +109,7 @@ const ProfileListPage = () => {
                             <Box component="span" sx={{ p: 2, border: '1px dashed grey', marginTop: '20vh' }}>
                                 <Alert severity="error">No Profile exists, please create one</Alert>
                                 <Button>
-                                    <Link style={{textDecoration: 'none'}} to="/create-profile">Create Profile</Link>
+                                    <Link style={{ textDecoration: 'none' }} to="/create-profile">Create Profile</Link>
                                 </Button>
                             </Box>
                     }

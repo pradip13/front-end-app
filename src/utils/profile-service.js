@@ -54,6 +54,23 @@ const ProfileService = {
         }).catch(err => {
             return err;
         })
+    },
+
+    deleteProfile(id) {
+        const encodedURI = window.encodeURI(`/delete-profile/${id}`);
+
+        return axios({
+            method: "DELETE",
+            url: encodedURI,
+            "headers": {
+                'Content-Type': 'application/json',
+                'server': proxyServer
+            }
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            return err;
+        })
     }
 }
 
