@@ -3,13 +3,17 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 
 import CreateProfile from '../user-profile/create-profile';
-import ProfileService from '../../utils/profile-service';
+import { useLocation } from 'react-router-dom';
 
-const ProfilePage = ({profileData}) => {
+const ProfilePage = () => {
+
+    const [profileData, setProfileData] = useState({});
+    const location = useLocation();
 
     useEffect(() => {
-        // get profile by ID
-    });
+        // get profile data from previous route path '/'
+        setProfileData(location.state.profileData);
+    }, []);
 
     return (
         <Container fluid="true">
