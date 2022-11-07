@@ -36,6 +36,24 @@ const ProfileService = {
         }).catch(err => {
             return err;
         })
+    },
+
+    updateProfile(profileData) {
+        const encodedURI = window.encodeURI(`/update-profile/${profileData.id}`);
+
+        return axios({
+            method: "PUT",
+            url: encodedURI,
+            data: profileData,
+            "headers": {
+                'Content-Type': 'application/json',
+                'server': proxyServer
+            }
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            return err;
+        })
     }
 }
 

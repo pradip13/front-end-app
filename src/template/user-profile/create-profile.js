@@ -39,6 +39,7 @@ const CreateProfile = ({ mode, data }) => {
             setProfileData(profileData =>
             ({
                 ...profileData, ...data,
+                ...profileData.id = data._id,
                 ...profileData.genderType[data.gender] = true
             })
             );
@@ -53,13 +54,20 @@ const CreateProfile = ({ mode, data }) => {
     const handleInputChange = (e) => {
         e.preventDefault();
         const { name, value } = e.target;
-        setProfileData({ ...profileData, [name]: value });
+
+        setProfileData({ ...profileData, [name]: value, });
+
+        if (name === 'gender' && value === 'male') {
+            profileData.genderType.male = true;
+            profileData.genderType.female = false;
+        } else if (name === 'gender' && value === 'female') {
+            profileData.genderType.female = true;
+            profileData.genderType.male = false;
+        }
     }
 
     const createProfile = (e) => {
         e.preventDefault();
-
-        console.log(profileData);
 
         const isProfileInputsAreValid = ProfileHelper.validateProfileInputField(profileData);
 
@@ -80,8 +88,8 @@ const CreateProfile = ({ mode, data }) => {
     }
 
     const updateUserProfile = async (data) => {
-        // const response = await ProfileService.createProfile(data);
-        console.log('response');
+        const response = await ProfileService.updateProfile(data);
+        console.log(response);
     }
 
     const clearProfileContent = (e) => {

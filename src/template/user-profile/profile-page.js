@@ -1,3 +1,5 @@
+// View and edit your profile 
+
 import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
@@ -13,7 +15,7 @@ const ProfilePage = () => {
     useEffect(() => {
         // get profile data from previous route path '/'
         setProfileData(location.state.profileData);
-    }, []);
+    }, [location]);
 
     return (
         <Container fluid="true">
