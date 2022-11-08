@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import CardMedia from '@mui/material/CardMedia';
@@ -12,18 +9,43 @@ import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import ShareIcon from '@mui/icons-material/Share';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { Link } from 'react-router-dom';
 
 import fallback_img from '../../images/profile-fallback-img.jpeg';
+import PostService from '../../utils/post-service';
 
-const PostListPage = ({ data=[] }) => {
+const PostListPage = ({ postCreated }) => {
+
+    const [postList, setPostList] = useState([]);
+    const [postDeleted, setPostDeleted] = useState(false);
+
+    useEffect(() => {
+        fetchAllPost()
+    }, [postCreated, postDeleted]);
+
+    const fetchAllPost = async () => {
+        const response = await PostService.getAllPost();
+        setPostList(response.data)
+    }
+
+    const deletePost = async (e, profileId) => {
+        e.preventDefault();
+        const response = await PostService.deletePost(profileId);
+
+        if (response.code === 200) {
+            setPostDeleted(!postDeleted)
+        }
+    }
+
     return (
-        <Grid container direction="row" rowGap={3} justifyContent="center" alignItems="center" style={{marginTop: '5rem'}}>
+        <Grid container direction="row" rowGap={3} justifyContent="center" alignItems="center" style={{ marginTop: '5rem' }}>
             {
-                !!data.length &&
-                data.reverse().map((item) =>
+                !!postList.length &&
+                postList.reverse().map((item) =>
                     <Grid item xs md={10} lg={10}>
                         <Card sx={{ maxWidth: 545 }}>
                             <CardHeader
@@ -52,14 +74,15 @@ const PostListPage = ({ data=[] }) => {
                                 </Typography>
                             </CardContent>
                             <CardActions disableSpacing>
-                                <IconButton aria-label="add to favorites">
-                                    <FavoriteIcon />
-                                </IconButton>
-                                <IconButton aria-label="share">
-                                    <ShareIcon />
-                                </IconButton>
-                            </CardActions>
 
+                                {/* Button to edit/delete profile */}
+                                <Button color="primary">
+                                    <Link to="/profile-page" state={{ profileData: item }}>
+                                        <EditIcon />
+                                    </Link>
+                                </Button>
+                                <Button color="error" startIcon={<DeleteIcon />} onClick={(e) => deletePost(e, item._id)} />
+                            </CardActions>
                         </Card>
                     </Grid>
                 )

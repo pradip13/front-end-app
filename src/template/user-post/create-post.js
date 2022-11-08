@@ -13,8 +13,8 @@ import { PostHelper } from '../../utils/helper';
 import PostService from '../../utils/post-service';
 
 const CreatePost = () => {
-    const [getAllPost, setGetAllPost] = useState(false);
-    const [postList, setPostList] = useState([]);
+
+    const [postCreated, setPostCreated] = useState(false);
     const [postData, setPostData] = useState({
         id: Math.floor(Math.random() * 90000) + 10000,
         image_url: '',
@@ -24,16 +24,6 @@ const CreatePost = () => {
         creation_date: new Date().toDateString(),
         like_count: 0
     });
-
-    useEffect(() => {
-        // get all post
-        fetchAllPost()
-    }, [getAllPost]);
-
-    const fetchAllPost = async () => {
-        const response = await PostService.getAllPost();
-        setPostList(response.data)
-    }
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -45,7 +35,6 @@ const CreatePost = () => {
         e.preventDefault();
 
         const isPostContentEmpty = PostHelper.validatePostContent(postData);
-
         // Input Validation
         if (isPostContentEmpty) {
             // add error notification here
@@ -56,11 +45,9 @@ const CreatePost = () => {
     }
 
     const createUserPost = async (e, data) => {
-        // API call to create post
         const response = await PostService.createPost(data);
-        setGetAllPost(true);
-
-        if(response.code === 200) {
+        if (response.code === 200) {
+            setPostCreated(!postCreated);
             clearPostContent(e);
         }
     }
@@ -101,7 +88,7 @@ const CreatePost = () => {
             </Paper>
 
             {/* Post List Component */}
-            <PostListPage data={postList}/>
+            <PostListPage postCreated={postCreated} />
         </>
     )
 }

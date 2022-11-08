@@ -36,6 +36,23 @@ const PostService = {
         }).catch(err => {
             return err;
         })
+    },
+
+    deletePost(id) {
+        const encodedURI = window.encodeURI(`/delete-post/${id}`);
+
+        return axios({
+            method: "DELETE",
+            url: encodedURI,
+            "headers": {
+                'Content-Type': 'application/json',
+                'server': proxyServer
+            }
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            return err;
+        })
     }
 }
 
