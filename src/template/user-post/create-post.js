@@ -11,8 +11,11 @@ import PostListPage from './post-list';
 
 import { PostHelper } from '../../utils/helper';
 import PostService from '../../utils/post-service';
+// import { useLocation } from 'react-router-dom';
 
 const CreatePost = () => {
+
+    // const location = useLocation();
 
     const [postCreated, setPostCreated] = useState(false);
     const [postData, setPostData] = useState({
@@ -24,6 +27,13 @@ const CreatePost = () => {
         creation_date: new Date().toDateString(),
         like_count: 0
     });
+
+    // useEffect(() => {
+    //     if(location.state !== null) {
+    //         const {postData = {}, mode = ''} = location.state;
+    //         console.log(postData, mode)
+    //     }
+    // }, []);
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -44,6 +54,7 @@ const CreatePost = () => {
         createUserPost(e, postData);
     }
 
+    // function to handle post creation
     const createUserPost = async (e, data) => {
         const response = await PostService.createPost(data);
         if (response.code === 200) {
@@ -52,6 +63,7 @@ const CreatePost = () => {
         }
     }
 
+    // function to clear all form field
     const clearPostContent = (e) => {
         e.preventDefault();
         setPostData({ ...postData, image_url: '', content: '' });

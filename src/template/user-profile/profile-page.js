@@ -12,9 +12,11 @@ const ProfilePage = () => {
     const [profileData, setProfileData] = useState({});
     const location = useLocation();
 
+    console.log('location', location);
+
     useEffect(() => {
         // get profile data from previous route path '/'
-        setProfileData(location.state.profileData);
+        setProfileData(location?.state?.profileData || {});
     }, [location]);
 
     return (

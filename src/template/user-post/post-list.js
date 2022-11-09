@@ -11,8 +11,12 @@ import Typography from '@mui/material/Typography';
 import { red } from '@mui/material/colors';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+
 import { Link } from 'react-router-dom';
 
 import fallback_img from '../../images/profile-fallback-img.jpeg';
@@ -20,8 +24,12 @@ import PostService from '../../utils/post-service';
 
 const PostListPage = ({ postCreated }) => {
 
+    const [postUpdatedContent, setPostUpdatedContent] = useState(''); 
+
     const [postList, setPostList] = useState([]);
     const [postDeleted, setPostDeleted] = useState(false);
+    const [editMode, setEditMode] = useState(false);
+    const [postEdited, setPostEdited] = useState(false);
 
     useEffect(() => {
         fetchAllPost()
@@ -29,7 +37,36 @@ const PostListPage = ({ postCreated }) => {
 
     const fetchAllPost = async () => {
         const response = await PostService.getAllPost();
-        setPostList(response.data)
+        if(response.code === 200) {
+            setPostList(response.data);
+        }
+    }
+
+    const handleInputChange = (e, item) => {
+        e.preventDefault();
+        const {value} = e.target;
+        console.log('postUpdatedContent', postUpdatedContent);
+        setPostUpdatedContent(value);
+        // console.log('event changed', item);
+    }
+
+    const setFocus = (e) => {
+        e.preventDefault();
+        const {value} = e.target;
+        setPostUpdatedContent(value);
+        console.log('focussed')
+
+    }
+
+    const savePost = async (e, data) => {
+        e.preventDefault();
+        console.log('postList', postList, '\n', 'data', data)
+        setEditMode(!editMode);
+        // const response = await PostService.updatePoste(profileId);
+
+        // if (response.code === 200) {
+        //     setPostDeleted(!postDeleted)
+        // }
     }
 
     const deletePost = async (e, profileId) => {
@@ -39,6 +76,16 @@ const PostListPage = ({ postCreated }) => {
         if (response.code === 200) {
             setPostDeleted(!postDeleted)
         }
+    }
+
+    const editPost = (e) => {
+        e.preventDefault();
+        setEditMode(!editMode);
+    }
+
+    const turnOffEditMode = (e) => {
+        e.preventDefault();
+        editPost(e);
     }
 
     return (
@@ -69,19 +116,38 @@ const PostListPage = ({ postCreated }) => {
                                 alt="cover_image"
                             />
                             <CardContent>
-                                <Typography variant="body2" color="text.secondary">
-                                    {item.content}
-                                </Typography>
+                                {
+                                    !editMode &&
+                                    <Typography variant="body2" color="text.secondary">
+                                        {item.content}
+                                    </Typography>
+                                }
+                                {
+                                    editMode &&
+                                    <TextField fullWidth id="outlined-multiline-static" label="Content" multiline rows={4}
+                                        name="postUpdatedContent" focused={true} onFocus={setFocus} 
+                                        value={postUpdatedContent} onChange={(e) => handleInputChange(e, item)} />
+                                }
                             </CardContent>
                             <CardActions disableSpacing>
 
-                                {/* Button to edit/delete profile */}
-                                <Button color="primary">
-                                    <Link to="/profile-page" state={{ profileData: item }}>
-                                        <EditIcon />
-                                    </Link>
-                                </Button>
-                                <Button color="error" startIcon={<DeleteIcon />} onClick={(e) => deletePost(e, item._id)} />
+                                {/* Button to edit/delete post */}
+
+                                {
+                                    !editMode &&
+                                    <>
+                                        <Button color="primary" startIcon={<EditIcon />} onClick={editPost} />
+                                        <Button color="error" startIcon={<DeleteIcon />} onClick={(e) => deletePost(e, item._id)} />
+                                    </>
+                                }
+
+                                {
+                                    editMode &&
+                                    <>
+                                        <Button color="success" startIcon={<CheckCircleIcon />} onClick={(e) => savePost(e, item)} />
+                                        <Button color="error" startIcon={<CancelIcon />} onClick={turnOffEditMode} />
+                                    </>
+                                }
                             </CardActions>
                         </Card>
                     </Grid>

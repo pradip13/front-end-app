@@ -37,6 +37,23 @@ const PostService = {
             return err;
         })
     },
+    updatePoste(postData) {
+        const encodedURI = window.encodeURI(`/update-post/${postData.id}`);
+
+        return axios({
+            method: "PUT",
+            url: encodedURI,
+            data: postData,
+            "headers": {
+                'Content-Type': 'application/json',
+                'server': proxyServer
+            }
+        }).then(res => {
+            return res.data;
+        }).catch(err => {
+            return err;
+        })
+    },
 
     deletePost(id) {
         const encodedURI = window.encodeURI(`/delete-post/${id}`);

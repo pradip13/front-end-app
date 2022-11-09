@@ -95,7 +95,7 @@ const CreateProfile = ({ mode, data }) => {
 
     const updateUserProfile = async (data) => {
         const response = await ProfileService.updateProfile(data);
-        
+
         if (response.code === 200) {
             return navigate("/");
         }
