@@ -15,6 +15,10 @@
 4. Run below predeploy command follwed by deploy
 5. After 1 min, gh-pages will be deployed and published.
 
+### NOTE:
+After successful deployment of page, if you are getting 404 during page refresh or during initial loading of the application
+Try changing `BrowserRouter` to `HashRouter` in the file where you have used it.
+ 
 ### Note
 
 Wip on edit post.
