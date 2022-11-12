@@ -7,7 +7,7 @@
 ### Deploying react application to gh-pages
 
 1. npm install gh-pages --save-dev
-2. add the detail inside inside package.json file. Below "version"
+2. add the detail inside package.json file. Below "version"
     - "homepage": "https://github_username.github.io/repo_name"
 3. Add following command under scripts
     - "predeploy": "npm run build",
@@ -23,3 +23,12 @@ Try changing `BrowserRouter` to `HashRouter` in the file where you have used it.
 
 Wip on edit post.
 Need to find out the way on how to bind the input field of post content to fetched item data anf then again pass it to new state.
+
+
+CI -  continuous intergration 
+CD - continuous deployment
+
+JENKINS
+
+
+gh-pages
