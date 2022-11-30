@@ -2,6 +2,7 @@
   "name": "social-media-frontend",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://pradip13.github.io/front-end-app",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
