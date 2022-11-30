@@ -12,7 +12,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import { NavLink } from 'react-router-dom';
 
-import gfgBanner from '../images/gfg-banner.png';
+import ImgBanner from "../images/img-banner.webp"
 import userImage from '../images/user-image.png';
 
 import './header.css';
@@ -64,7 +64,7 @@ const HeaderTemplate = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        <img alt="gfg-banner" src={gfgBanner} className="gfg-banner-style" />
+                        <img alt="gfg-banner" src={ImgBanner} className="gfg-banner-style" />
                     </Typography>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -117,7 +117,7 @@ const HeaderTemplate = () => {
                             textDecoration: 'none',
                         }}
                     >
-                        <img alt="gfg-banner" src={gfgBanner} className="gfg-banner-style" />
+                        <img alt="gfg-banner" src={ImgBanner} className="gfg-banner-style" />
                     </Typography>
 
                     {/* Desktop View of Nav Component */}

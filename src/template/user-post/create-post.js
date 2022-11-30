@@ -6,7 +6,7 @@ import Avatar from '@mui/material/Avatar';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
-import userImage from '../../images/gfg-logo.jpeg';
+import userImage from '../../images/gfg-logo.jpg';
 import PostListPage from './post-list';
 
 import { PostHelper } from '../../utils/helper';

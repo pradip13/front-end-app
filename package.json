@@ -1,7 +1,6 @@
 {
   "name": "social-media-frontend",
   "version": "0.1.0",
-  "homepage": "https://Pushp1992.github.io/social-media-frontend",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.5",
@@ -34,7 +33,7 @@
   },
   "scripts": {
     "dev": "run-s client server",
-    "client": "PORT=4000 react-scripts start",
+    "client": " set PORT=4000 && react-scripts start",
     "server": "node-env-run src/server --exec nodemon | pino-colada",
     "build": "react-scripts build",
     "predeploy": "npm run build",
