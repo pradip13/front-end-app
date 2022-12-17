@@ -11,7 +11,7 @@ const RouteList = () => {
     return (
         <Routes>
             <Route path='/' element={<ProfileListPage />} />
-            <Route path='/create-post' element={< PostPage/>} />
+            <Route path='/create-post' element={<PostPage/>} />
             <Route path='/post-list' element={<PostListPage />} />
             <Route path='/create-profile' element={<CreateProfile />} />
             <Route path='/profile-page' element={<ProfilePage />} />

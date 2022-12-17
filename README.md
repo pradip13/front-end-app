@@ -5,6 +5,7 @@
 2. https://media.istockphoto.com/id/1355569095/vector/digital-eye-data-network-cyber-security-technology.jpg?s=612x612&w=0&k=20&c=b5moC17mfe_--IMWUnv1ez6sZpXcuWRFw3HwCp5n4Q4=
 
 ### Deploying react application to gh-pages
+// "deploy": "gh-pages -d build",
 
 1. npm install gh-pages --save-dev
 2. add the detail inside package.json file. Below "version"
